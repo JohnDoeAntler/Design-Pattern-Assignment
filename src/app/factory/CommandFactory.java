@@ -2,6 +2,7 @@ package app.factory;
 
 import app.command.CreateProductCommand;
 import app.command.DeliverProductCommand;
+import app.command.ExitCommand;
 import app.command.ICommand;
 import app.command.ReceiveProductCommand;
 import app.command.RedoCommand;
@@ -24,6 +25,7 @@ public class CommandFactory {
 			case 'u': return new UndoCommand();
 			case 'r': return new RedoCommand();
 			case 'l': return new ListHistoryCommand();
+			case 'x': return new ExitCommand();
 			default: throw new CommandNotFoundException();
 		}
 	}
