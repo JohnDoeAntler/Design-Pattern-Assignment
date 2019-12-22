@@ -24,7 +24,7 @@ public class CoffeePowderAdapter extends CoffeePowder implements ICoffeeProduct 
 	@Override
 	public String getInfo() {
 		return String.format(
-			"%-4d\t%-12s\t%-8d\t%d g",
+			"%-4d\t%-12s\t%-8d\t%f g",
 			this.getProductId(),
 			this.getName(),
 			this.getQty(),
