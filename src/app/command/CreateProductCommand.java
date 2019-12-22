@@ -3,6 +3,7 @@ package app.command;
 import java.util.Scanner;
 
 import app.adapter.ICoffeeProduct;
+import app.exception.CoffeeProductNotFoundException;
 import app.exception.DuplicatedProductIdException;
 import app.exception.InvalidCoffeeProductArgumentException;
 import app.factory.CoffeeProductFactory;
@@ -37,7 +38,7 @@ public class CreateProductCommand implements ICommand, RecordableCommand{
 				// add created coffee product to the product list
 				ProductListSingleton.getInstance().put(product.getProductId(), product);
 			}
-		} catch (DuplicatedProductIdException e) {
+		} catch (DuplicatedProductIdException | CoffeeProductNotFoundException e) {
 			throw e;
 		} catch (Exception e) {
 			throw new InvalidCoffeeProductArgumentException();
