@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import app.adapter.ICoffeeProduct;
 import app.exception.NegativeQuantityException;
+import app.exception.ProductIdNotFoundException;
 import app.singleton.ProductListSingleton;
 import app.singleton.ScannerSingleton;
 
@@ -24,6 +25,10 @@ public class DeliverProductCommand implements ICommand, RecordableCommand {
 		System.out.println("Enter code: ");
 		// retrieve the product id via scanner, and find the product by product id from the product list singleton
 		product = ProductListSingleton.getInstance().get(scanner.nextInt());
+		// throw exception when no product was found.
+		if (product == null) {
+			throw new ProductIdNotFoundException();
+		}
 		// alert user to enter the quantity
 		System.out.println("Quantity to ship: ");
 		// retrieve the quantity integer via scanner

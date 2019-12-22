@@ -18,24 +18,20 @@ public class UndoCommand implements ICommand {
 		// get undo list and redo list
 		Stack<Memento> undos = UndoListSingleton.getInstance();
 		Stack<Memento> redos = RedoListSingleton.getInstance();
-
-		if (undos.size() > 0) {
-			// instantiate a originator
-			Originator originator = new Originator();
-
-			// restore originator
-			originator.restore(undos.peek());
-
-			// cast the ICommand to UndoableCommand
-			((RecordableCommand) originator.getState()).undo();
-
-			// move the undo list's last element to redo list
-			redos.add(undos.pop());
-
-			System.out.println("undo completed.");
-		} else {
+		// throw exception when undo list is empty
+		if (undos.size() == 0) {
 			throw new UndoListEmptyException();
 		}
+		// instantiate a originator
+		Originator originator = new Originator();
+		// restore originator
+		originator.restore(undos.peek());
+		// cast the ICommand to UndoableCommand
+		((RecordableCommand) originator.getState()).undo();
+		// move the undo list's last element to redo list
+		redos.add(undos.pop());
+		// print result
+		System.out.println("undo completed.");
 
 		return this;
 	}

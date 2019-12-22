@@ -3,6 +3,7 @@ package app.command;
 import java.util.Collection;
 
 import app.adapter.ICoffeeProduct;
+import app.exception.ProductIdNotFoundException;
 import app.singleton.ProductListSingleton;
 import app.singleton.ScannerSingleton;
 
@@ -25,10 +26,18 @@ public class ShowProductCommand implements ICommand {
 			System.out.println("Coffee Product information");
 			System.out.println("ID  \tName        \tQuantity\tOther Info");
 			// foreach
-			arr.forEach(p -> System.out.println(p.getInfo()));
+			if (arr.size() == 0) {
+				System.out.println("Empty.");
+			} else {
+				arr.forEach(p -> System.out.println(p.getInfo()));
+			}
 		} else {
 			// get product by id
 			ICoffeeProduct product = ProductListSingleton.getInstance().get(Integer.parseInt(input));
+			// throw exception when no product was found.
+			if (product == null) {
+				throw new ProductIdNotFoundException();
+			}
 			// header
 			System.out.println("Product information");
 			// get detail information of the product

@@ -3,6 +3,7 @@ package app.command;
 import java.util.Scanner;
 
 import app.adapter.ICoffeeProduct;
+import app.exception.ProductIdNotFoundException;
 import app.singleton.ProductListSingleton;
 import app.singleton.ScannerSingleton;
 
@@ -23,6 +24,10 @@ public class ReceiveProductCommand implements ICommand, RecordableCommand {
 		System.out.println("Enter code: ");
 		// get product by user inputted keycode
 		product = ProductListSingleton.getInstance().get(scanner.nextInt());
+		// throw exception when no product was found.
+		if (product == null) {
+			throw new ProductIdNotFoundException();
+		}			
 		// alert user to enter the quantity they want to collect
 		System.out.println("Quantity to receive: ");
 		// retrieve the quantity via the scanner
